@@ -31,7 +31,12 @@
       Some basic examples for using the underlying API. See the Swagger UI above
       for more details.
     </p>
-    <p class="my-1 body-2" v-for="(example, i) in examples" :key="i">
+    <p
+      style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"
+      class="my-1 body-2"
+      v-for="(example, i) in examples"
+      :key="i"
+    >
       <a :href="example.link">{{ example.text }}</a>
     </p>
   </v-container>
@@ -55,7 +60,8 @@ export default {
       {
         link:
           'https://api.wc3.blizzardquotes.com/v1/quotes/random?faction=human&action=pissed&is_hero=true&is_melee=true',
-        text: 'A random pissed-off human hero quote'
+        text:
+          'https://api.wc3.blizzardquotes.com/v1/quotes/random?faction=human&action=pissed&is_hero=true&is_melee=true'
       },
       {
         link: 'https://api.wc3.blizzardquotes.com/v1/quotes',
@@ -64,7 +70,8 @@ export default {
       {
         link:
           'https://api.wc3.blizzardquotes.com/v1/quotes?unit=knight&action=pissed',
-        text: 'Only pissed-off knight quotes'
+        text:
+          'https://api.wc3.blizzardquotes.com/v1/quotes?unit=knight&action=pissed'
       }
     ],
     easterEggArray: []

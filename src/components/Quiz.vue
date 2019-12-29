@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="mx-0 pt-0">
     <h2>Quiz</h2>
-    <p>
+    <p class="text-justify">
       Familiar with all of the Warcraft III quotes? See how high you can score.
       Quotes and potential answers are randomly selected.
     </p>
@@ -25,7 +25,7 @@
         </v-col>
       </v-row>
       <v-row dense align="center" justify="center" class="pa-2">
-        <v-col cols="6" md="3" v-for="(choice, i) in choices" :key="i">
+        <v-col cols="12" sm="6" md="3" v-for="(choice, i) in choices" :key="i">
           <v-btn block :disabled="gameOver" @click="answer(choice)">
             {{ choice }}</v-btn
           ></v-col
