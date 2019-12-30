@@ -10,13 +10,13 @@
 </template>
 
 <script>
-import Header from './components/Header';
-import Information from './components/Information';
-import Quiz from './components/Quiz.vue';
-import Footer from './components/Footer';
+import Header from "./components/Header";
+import Information from "./components/Information";
+import Quiz from "./components/Quiz.vue";
+import Footer from "./components/Footer";
 
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
     Header,
