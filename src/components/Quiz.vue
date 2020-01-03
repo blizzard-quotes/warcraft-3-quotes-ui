@@ -39,7 +39,9 @@
           >
         </v-col>
         <v-col>
-          <v-btn id="quiz-button-restart" block @click="restart">Restart</v-btn>
+          <v-btn color="#171717" id="quiz-button-restart" block @click="restart"
+            >Restart</v-btn
+          >
         </v-col>
       </v-row>
     </v-card>
