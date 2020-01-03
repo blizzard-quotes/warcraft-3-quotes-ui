@@ -43,7 +43,7 @@
       v-for="(example, i) in examplesRandom"
       :key="'random,' + i"
     >
-      <a :href="example.link">{{ example.text }}</a>
+      <a :href="example">{{ example }}</a>
     </p>
     <h3 id="information-usage-collection">Quotes</h3>
     <p
@@ -52,7 +52,7 @@
       v-for="(example, i) in examplesCollection"
       :key="'collection,' + i"
     >
-      <a :href="example.link">{{ example.link }}</a>
+      <a :href="example">{{ example }}</a>
     </p>
   </v-container>
 </template>
@@ -71,20 +71,12 @@ export default {
     color: process.env.VUE_APP_COLOR,
     loading: false,
     examplesRandom: [
-      {
-        link: `${process.env.VUE_APP_API_URL}/v1/quotes/random`
-      },
-      {
-        link: `${process.env.VUE_APP_API_URL}/v1/quotes/random?faction=human&action=pissed&is_hero=true&is_melee=true`
-      }
+      `${process.env.VUE_APP_API_URL}/v1/quotes/random`,
+      `${process.env.VUE_APP_API_URL}/v1/quotes/random?faction=human&action=pissed&is_hero=true&is_melee=true`
     ],
     examplesCollection: [
-      {
-        link: `${process.env.VUE_APP_API_URL}/v1/quotes`
-      },
-      {
-        link: `${process.env.VUE_APP_API_URL}/v1/quotes?unit=knight&action=pissed`
-      }
+      `${process.env.VUE_APP_API_URL}/v1/quotes`,
+      `${process.env.VUE_APP_API_URL}/v1/quotes?unit=knight&action=pissed`
     ],
     easterEggArray: []
   }),
@@ -99,6 +91,21 @@ export default {
     });
     window.addEventListener('keydown', e => {
       this.easterEggArray.push(e.keyCode);
+
+      console.log(this.easterEggArray);
+
+      if (
+        this.easterEggArray.length === 12 &&
+        this.easterEggArray.every(
+          (value, index) =>
+            value === [38, 38, 40, 40, 37, 39, 37, 39, 66, 65, 16, 13][index]
+        )
+      ) {
+        console.log('Yahaha! You found me!');
+
+        this.easterEggArray.shift();
+        return;
+      }
 
       if (this.easterEggArray.length > 11) {
         this.easterEggArray.shift();
