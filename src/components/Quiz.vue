@@ -7,9 +7,12 @@
     </p>
     <v-checkbox
       id="quiz-is-melee-checkbox"
+      :disabled="loading"
       :color="color"
       v-model="isMelee"
       label="Only melee units"
+      hint="Include only melee units (versus units). Does not include units that only 
+      appear via the campaign or custom games."
       class="my-0"
       @change="getEveryUnit()"
     ></v-checkbox>
@@ -32,7 +35,8 @@
             block
             :disabled="gameOver"
             @click="answer(choice)"
-          >{{ choice }}</v-btn>
+            >{{ choice }}</v-btn
+          >
         </v-col>
         <v-col>
           <v-btn id="quiz-button-restart" block @click="restart">Restart</v-btn>
@@ -43,56 +47,75 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
-  name: "Quiz",
+  name: 'Quiz',
 
   data: () => ({
     quote: "You're the king? Well, I didn't vote for you.",
-    choices: ["Archer", "Far Seer", "Crypt Fiend", "Peasant"],
+    choices: ['Archer', 'Far Seer', 'Crypt Fiend', 'Peasant'],
     units: [],
     isMelee: true,
     gameOver: false,
-    feedback: "Select the unit which said the above quote.",
+    feedback: 'Select the unit which said the above quote.',
     score: 0,
-    color: "#F4D03F"
+    color: process.env.VUE_APP_COLOR,
+    loading: false
   }),
   created() {
     this.getEveryUnit();
   },
   methods: {
     getEveryUnit() {
-      let url = "https://api.wc3.blizzardquotes.com/v1/units";
-
-      if (this.isMelee) {
-        url += "?is_melee=true";
+      if (this.loading) {
+        return;
       }
 
+      let url = `${process.env.VUE_APP_API_URL}/v1/units`;
+
+      if (this.isMelee) {
+        url += '?is_melee=true';
+      }
+
+      this.loading = true;
       axios
         .get(url)
         .then(res => {
           this.units = res.data;
+          this.loading = false;
           this.randomQuote();
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          this.loading = false;
+        });
 
       this.default();
     },
     randomQuote() {
-      let url = "https://api.wc3.blizzardquotes.com/v1/quotes/random";
-
-      if (this.isMelee) {
-        url += "?is_melee=true";
+      if (this.loading) {
+        return;
       }
 
+      let url = `${process.env.VUE_APP_API_URL}/v1/quotes/random`;
+
+      if (this.isMelee) {
+        url += '?is_melee=true';
+      }
+
+      this.loading = true;
       axios
         .get(url)
         .then(res => {
           this.quote = res.data;
           this.randomChoices();
+          this.loading = false;
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          this.loading = false;
+        });
     },
     randomChoices() {
       this.choices = [];
@@ -111,7 +134,7 @@ export default {
     },
     answer(choice) {
       if (choice === this.quote.unit) {
-        this.feedback = "Correct!";
+        this.feedback = 'Correct!';
         this.score++;
         this.randomQuote();
       } else {
@@ -124,14 +147,13 @@ export default {
       this.default();
     },
     default() {
-      this.feedback = "Select the unit which said the above quote.";
+      this.feedback = 'Select the unit which said the above quote.';
       this.score = 0;
       this.gameOver = false;
     },
     randomNumber(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     },
-
     // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
     shuffle(array) {
       var currentIndex = array.length,
