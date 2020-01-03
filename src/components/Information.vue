@@ -45,7 +45,7 @@
     >
       <a :href="example">{{ example }}</a>
     </p>
-    <h3 id="information-usage-collection">Quotes</h3>
+    <h3 id="information-usage-collection" class="mt-4">Quotes</h3>
     <p
       style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;"
       class="my-1 body-2"

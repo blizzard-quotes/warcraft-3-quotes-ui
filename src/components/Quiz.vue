@@ -1,5 +1,5 @@
 <template>
-  <v-container id="quiz">
+  <v-container id="quiz" class="pt-0">
     <h2 id="quiz-header">Quiz</h2>
     <p class="text-justify">
       Familiar with all of the Warcraft III quotes? See how high you can score.
