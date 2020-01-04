@@ -92,8 +92,6 @@ export default {
     window.addEventListener('keydown', e => {
       this.easterEggArray.push(e.keyCode);
 
-      console.log(this.easterEggArray);
-
       if (
         this.easterEggArray.length === 12 &&
         this.easterEggArray.every(
