@@ -8,20 +8,20 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: App
+    component: App,
   },
   {
     path: '/blizzardquotes',
     name: 'blizzard-quotes',
     beforeEnter() {
       location.href = 'http://blizzardquotes.com';
-    }
-  }
+    },
+  },
 ];
 
 const router = new VueRouter({
   mode: 'history',
-  routes
+  routes,
 });
 
 export default router;

@@ -1,7 +1,5 @@
 module.exports = {
-  "transpileDependencies": [
-    "vuetify"
-  ],
+  transpileDependencies: ['vuetify'],
 
   pluginOptions: {
     s3Deploy: {
@@ -18,7 +16,7 @@ module.exports = {
       pwa: false,
       enableCloudfront: false,
       uploadConcurrency: 5,
-      pluginVersion: '3.0.0'
-    }
-  }
-}
+      pluginVersion: '3.0.0',
+    },
+  },
+};
