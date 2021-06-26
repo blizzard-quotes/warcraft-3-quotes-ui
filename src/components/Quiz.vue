@@ -139,7 +139,7 @@ export default {
         if (!this.choices.includes(this.units[randomNumber])) {
           this.choices.push(this.units[randomNumber]);
         }
-      } while (this.choices.length < 4);
+      } while (this.choices.length < this.choices_length);
 
       this.shuffle(this.choices);
     },
