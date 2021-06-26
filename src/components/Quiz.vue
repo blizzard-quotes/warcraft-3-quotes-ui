@@ -50,6 +50,10 @@
 
 <script>
 import axios from 'axios';
+import Konami from 'konami';
+
+const CHOICES_LENGTH_DEFAULT = 4;
+const CHOICES_LENGTH_KONAMI = 8;
 
 export default {
   name: 'Quiz',
@@ -57,16 +61,21 @@ export default {
   data: () => ({
     quote: "You're the king? Well, I didn't vote for you.",
     choices: ['Archer', 'Far Seer', 'Crypt Fiend', 'Peasant'],
+    choices_length: CHOICES_LENGTH_DEFAULT,
     units: [],
     isMelee: true,
     gameOver: false,
     feedback: 'Select the unit which said the above quote.',
     score: 0,
     color: process.env.VUE_APP_COLOR,
-    loading: false
+    loading: false,
   }),
   created() {
     this.getEveryUnit();
+    new Konami(() => {
+      this.choices_length = CHOICES_LENGTH_KONAMI;
+      this.restart();
+    });
   },
   methods: {
     getEveryUnit() {
@@ -83,12 +92,12 @@ export default {
       this.loading = true;
       axios
         .get(url)
-        .then(res => {
+        .then((res) => {
           this.units = res.data;
           this.loading = false;
           this.randomQuote();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           this.loading = false;
         });
@@ -109,12 +118,12 @@ export default {
       this.loading = true;
       axios
         .get(url)
-        .then(res => {
+        .then((res) => {
           this.quote = res.data;
           this.randomChoices();
           this.loading = false;
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           this.loading = false;
         });
@@ -175,7 +184,7 @@ export default {
       }
 
       return array;
-    }
-  }
+    },
+  },
 };
 </script>
